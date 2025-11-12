@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "node scripts/copy-face-assets.js"
   },
   "dependencies": {
     "@azure-ai-vision-face/ui-assets": "^1.4.5",
