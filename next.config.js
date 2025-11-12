@@ -1,6 +1,11 @@
 // next.config.js
-// Use default server runtime on Vercel (no static export), so API routes work.
-module.exports = {
-  // No 'output: export' to avoid static export limitations.
-  // Vercel provides image optimization by default; no need to set unoptimized.
+// Default: server runtime (Vercel compatible). Opt-in static export when ENV set.
+module.exports = () => {
+  const enableStatic = process.env.NEXT_OUTPUT === 'export' || process.env.EXPORT_STATIC === 'true';
+  const config = {};
+  if (enableStatic) {
+    config.output = 'export';
+    config.images = { unoptimized: true };
+  }
+  return config;
 };
