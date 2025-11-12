@@ -13,6 +13,7 @@ export async function fetchTokenFromAPI(
   setLoadingToken?: (b: boolean) => void,
   setErrorMessage?: (msg: string) => void
 ): Promise<void> {
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || '';
   // This is an example of how to generate a liveness session without exposing your api key or endpoint to the client side
   let action = (file !== undefined) ? "detectLivenessWithVerify": "detectLiveness";
   let parameters: { [key: string]: string | boolean } = {
@@ -29,7 +30,7 @@ export async function fetchTokenFromAPI(
     sessionCreationBody.append('verifyImage', file, file.name);
   }
 
-  const res = await fetch(`/api/generateAccessToken`, {
+  const res = await fetch(`${API_BASE}/api/generateAccessToken`, {
     method: 'POST',
     body: sessionCreationBody,
   });
@@ -59,7 +60,8 @@ export async function fetchSessionResultFromAPI(
   action: string,
   sessionId: string
 ) {
-  const res = await fetch(`/api/getSessionResult?action=${action}&sessionId=${sessionId}`, {
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || '';
+  const res = await fetch(`${API_BASE}/api/getSessionResult?action=${action}&sessionId=${sessionId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
