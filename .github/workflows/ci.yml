@@ -30,7 +30,6 @@ jobs:
       - name: Configure npm auth for Azure Artifacts
         run: |
           npm config set //pkgs.dev.azure.com/msface/SDK/_packaging/AzureAIVision/npm/registry/:_authToken ${AZURE_NPM_TOKEN}
-          npm config set always-auth true
 
       - name: Install dependencies
         run: npm ci
